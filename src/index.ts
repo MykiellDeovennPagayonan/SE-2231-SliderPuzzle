@@ -27,17 +27,20 @@ lines.forEach((line, row) => {
     tiles[row - 1] = nums;
 });
 
+
 const initial: Board = new Board(tiles);
+console.log(initial.toString())
+console.log(initial.manhattan())
 
-// solve the puzzle
-const solver: Solver = new Solver(initial);
+// // solve the puzzle
+// const solver: Solver = new Solver(initial);
 
-// print solution to standard output
-if (!solver.isSolvable()) {
-    console.log("No solution possible");
-} else {
-    console.log("Minimum number of moves = " + solver.moves());
-    for (let board of solver.solution()) {
-        console.log(board.toString());
-    }
-}
+// // print solution to standard output
+// if (!solver.isSolvable()) {
+//     console.log("No solution possible");
+// } else {
+//     console.log("Minimum number of moves = " + solver.moves());
+//     for (let board of solver.solution()) {
+//         console.log(board.toString());
+//     }
+// }
