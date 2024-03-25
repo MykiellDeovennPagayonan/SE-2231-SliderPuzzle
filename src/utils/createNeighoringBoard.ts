@@ -27,15 +27,11 @@ export default function createNeighboringBoard(
   }
 
   if (xSwap >= 0 && ySwap >= 0 && xSwap < newBoard.size && ySwap < newBoard.size) {
-    console.log("new", newBoard.toString())
     newBoard.getTile(xSwap, ySwap)
     newBoard.setTile(newBoard.getTile(xSwap, ySwap), x0, y0)
     newBoard.setTile(0, xSwap, ySwap)
 
-    console.log("x0", x0)
-    console.log("y0", y0)
-
-    // console.log(newBoard.toString())
+    return newBoard
   }
 
   return null;

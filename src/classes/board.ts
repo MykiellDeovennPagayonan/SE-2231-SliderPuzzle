@@ -1,3 +1,5 @@
+import * as clone from "lodash"
+
 import createGoalBoard from "../utils/createGoalBoard";
 import getTileDistance from "../utils/getTileDistance";
 import createNeighboringBoard from "../utils/createNeighoringBoard";
@@ -122,7 +124,7 @@ class Board {
     }
 
     clone() : Board {
-        return new Board(this.tiles)
+        return clone.cloneDeep(this)
     }
 
     getTile(x : number, y: number) : number {
