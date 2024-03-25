@@ -1,14 +1,17 @@
 import createGoalBoard from "../utils/createGoalBoard";
 import getTileDistance from "../utils/getTileDistance";
+import createNeighboringBoard from "../utils/createNeighoringBoard";
 
 class Board {
-    tiles: number[][] = [[0]];
-    goalBoard: number[][] = [[0]]
+    private tiles: number[][] = [[0]];
+    private goalBoard: number[][] = [[0]]
+    public size: number = 0
 
     constructor(tiles: number[][]) {
         this.tiles = tiles
 
         this.goalBoard = createGoalBoard(tiles.length)
+        this.size = tiles.length
     }
 
     toString(): string {
@@ -71,20 +74,59 @@ class Board {
 
     // does this board equal y?
     equals(y: Board): boolean {
-        // PLS MODIFY
+        for (let i = 0; i < this.tiles.length; i++) {
+            for (let j = 0; j < this.tiles[i].length; j++) {
+                if (this.tiles[i][j] !== y.tiles[i][j]) {
+                    return false
+                }
+            }
+        }
         return true;
     }
 
     // all neighboring boards
     neighbors(): Board[] {
-        // PLS MODIFY
-        return [];
+        let x0 : number = -2
+        let y0 : number = -2
+        for (let i = 0; i < this.tiles.length; i++) {
+            for (let j = 0; j < this.tiles[i].length; j++) {
+                if (this.tiles[i][j] === 0) {
+                    x0 = j
+                    y0 = i
+                }
+            }
+        }
+
+        let neighboringBoards : Board[] = []
+
+        let directions : Array<"up" | "down" | "left" | "right"> = ["up", "down", "left", "right"]
+
+        for (let i = 0; i < directions.length; i++) {
+            let neighboringBoard = createNeighboringBoard(this, directions[i], x0, y0)
+            if (neighboringBoard) {
+                neighboringBoards.push(neighboringBoard)
+            }
+        }
+
+        return neighboringBoards;
     }
 
     // a board that is obtained by exchanging any pair of tiles
     twin(): Board {
         // PLS MODIFY
         return new Board([[]]);
+    }
+
+    setTile(value: number, x : number, y: number) : void {
+        this.tiles[y][x] = value
+    }
+
+    clone() : Board {
+        return new Board(this.tiles)
+    }
+
+    getTile(x : number, y: number) : number {
+        return this.tiles[y][x]
     }
 }
 
