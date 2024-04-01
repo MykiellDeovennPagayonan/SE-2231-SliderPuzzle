@@ -30,10 +30,9 @@ lines.forEach((line, row) => {
 
 const initial: Board = new Board(tiles);
 console.log(initial.toString())
-let neighb = initial.neighbors()
-for (let i = 0; i < neighb.length; i++) {
-    console.log(neighb[i].toString())
-}
+let twin = initial.twin()
+
+console.log(twin.toString())
 
 // // solve the puzzle
 // const solver: Solver = new Solver(initial);

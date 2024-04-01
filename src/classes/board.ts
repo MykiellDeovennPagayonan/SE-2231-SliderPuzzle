@@ -115,8 +115,24 @@ class Board {
 
     // a board that is obtained by exchanging any pair of tiles
     twin(): Board {
-        // PLS MODIFY
-        return new Board([[]]);
+        let x1 = Math.floor(Math.random() * this.size)
+        let x2 = Math.floor(Math.random() * this.size)
+        let y1 = Math.floor(Math.random() * this.size)
+        let y2 = Math.floor(Math.random() * this.size)
+
+        while (this.tiles[y1][x1] === 0 || this.tiles[y2][x2] === 0 || (x1 === x2 && y1 === y2)) {
+            x1 = Math.floor(Math.random() * this.size)
+            x2 = Math.floor(Math.random() * this.size)
+            y1 = Math.floor(Math.random() * this.size)
+            y2 = Math.floor(Math.random() * this.size)
+        }
+
+        let clone = this.clone()
+        let tileValue = this.tiles[y1][x1]
+        clone.setTile(this.tiles[y2][x2], x1, y1)
+        clone.setTile(tileValue, x2, y2)
+
+        return clone;
     }
 
     setTile(value: number, x : number, y: number) : void {
