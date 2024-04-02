@@ -61,5 +61,5 @@ heap.add(node2);
 heap.add(node3);
 
 console.log(heap.peek());
-console.log(heap.poll());
-console.log(heap.peek());
+let hallo = heap.poll();
+console.log(hallo, "yas")

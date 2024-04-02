@@ -19,6 +19,14 @@ class SearchNode {
   priority(): number {
     return this.moves + this.manhattan;
   }
+
+  getMoves() : number {
+    return this.moves
+  }
+
+  getBoard() : Board {
+    return this.board
+  }
 }
 
 export default SearchNode

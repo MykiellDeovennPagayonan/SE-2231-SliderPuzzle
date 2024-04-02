@@ -40,7 +40,7 @@ class Board {
     }
 
     dimension(): number {
-        return this.tiles.length;
+        return this.size;
     }
 
     hamming(): number {

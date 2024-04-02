@@ -1,36 +1,17 @@
 import Board from "./board";
 import { MinHeap } from "min-heap-typed";
-
-class SearchNode {
-  board: Board;
-  moves: number;
-  manhattan: number;
-  previousSearchNode: SearchNode | null;
-
-  constructor(
-    board: Board,
-    moves: number,
-    previousSearchNode: SearchNode | null = null
-  ) {
-    this.board = board;
-    this.moves = moves;
-    this.manhattan = board.manhattan();
-    this.previousSearchNode = previousSearchNode;
-  }
-
-  priority(): number {
-    return this.moves + this.manhattan;
-  }
-}
-
-const heap = new MinHeap<SearchNode>([], {
-  comparator: (a, b) => a.priority() - b.priority(),
-});
+import SearchNode from "./searchNode";
+import newBoardNode from "../utils/newBoardNode";
 
 class Solver {
+  initialBoard: Board;
+  twinBoard: Board;
+
   // find a solution to the initial board (using the A* algorithm)
   constructor(initial: Board) {
-    // YOUR CODE HERE
+    this.initialBoard = initial
+    this.twinBoard = initial.twin()
+
   }
 
   // is the initial board solvable? (see below)
@@ -49,6 +30,33 @@ class Solver {
   solution(): Board[] {
     // PLS MODIFY
     return [];
+  }
+
+  solve(board: Board) : boolean | SearchNode {
+    const heap = new MinHeap<SearchNode>([], {
+      comparator: (a, b) => a.priority() - b.priority(),
+    });
+
+    let counter = 30
+
+    const initialSearchNode = new SearchNode(board, 0)
+    heap.add(initialSearchNode)
+
+    while (true) {
+      let priorityNode = heap.poll()
+
+      if (!priorityNode) {
+        return false
+      }
+
+      
+      if (priorityNode.getBoard().isGoal()) {
+        return priorityNode
+      }
+
+      let newNodes = newBoardNode(priorityNode)
+      newNodes.forEach(newNode => heap.add(newNode))
+    }
   }
 }
 
