@@ -17,7 +17,7 @@ class Solver {
   isSolvable(): boolean {
     let counter = 50
 
-    while (counter < 10000) {
+    while (counter < 2000) {
       let solvedBoard = this.solve(this.initialBoard, counter)
 
       if (solvedBoard) {
@@ -29,7 +29,6 @@ class Solver {
       if (solvedTwinBoard) {
         return false
       }
-
       counter += 50
     }
 
