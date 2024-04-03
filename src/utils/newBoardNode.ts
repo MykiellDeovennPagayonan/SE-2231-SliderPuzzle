@@ -9,6 +9,7 @@ export default function newBoardNode(node : SearchNode) : Array<SearchNode> {
   let neighbors = board.neighbors()
 
   neighbors.forEach(neighbor => boardNodes.push(new SearchNode(neighbor, moves + 1, node)))
+  boardNodes.filter(boardNode => boardNode.getBoard() !== board)
 
   return boardNodes
 }

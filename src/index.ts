@@ -1,6 +1,7 @@
 import Solver from "./classes/solver";
 import Board from "./classes/board";
 import { readFileSync } from "fs";
+import SearchNode from "./classes/searchNode";
 
 const fileName: string = process.argv[2];
 
@@ -30,19 +31,24 @@ lines.forEach((line, row) => {
 
 const initial: Board = new Board(tiles);
 console.log(initial.toString())
-let twin = initial.twin()
-
-console.log(twin.toString())
 
 // // solve the puzzle
-// const solver: Solver = new Solver(initial);
+const solver: Solver = new Solver(initial);
+// const solved : boolean | SearchNode  = solver.solve(initial)
+
+// if (solved) {
+//     let board = solved.getBoard().toString()
+//     console.log(board)
+//     console.log(solved.getMoves())
+// }
 
 // // print solution to standard output
-// if (!solver.isSolvable()) {
-//     console.log("No solution possible");
-// } else {
-//     console.log("Minimum number of moves = " + solver.moves());
-//     for (let board of solver.solution()) {
-//         console.log(board.toString());
-//     }
-// }
+if (!solver.isSolvable()) {
+    console.log("No solution possible");
+} else {
+    console.log("Minimum number of moves = " + solver.moves());
+    let solution = solver.solution()
+    if (solution) {
+        solution.forEach(board => console.log(board.toString()))
+    }
+}
