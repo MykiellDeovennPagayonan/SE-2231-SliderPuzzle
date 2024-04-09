@@ -15,25 +15,15 @@ class Solver {
 
   // is the initial board solvable? (see below)
   isSolvable(): boolean {
-    let counter = 50
-
-    while (counter < 2000) {
-      let solvedBoard = this.solve(this.initialBoard, counter)
-
-      if (solvedBoard) {
-        return true
-      }
-
-      let solvedTwinBoard = this.solve(this.twinBoard, counter)
-
-      if (solvedTwinBoard) {
-        return false
-      }
-      counter += 50
+    const inversions = this.initialBoard.inversionCount();
+    const rowWithBlankFromBottom = this.initialBoard.size - this.initialBoard.tiles.findIndex(row => row.includes(0));
+    // For odd dimensions, the blank tile must be on an even row counting from the bottom
+    if (this.initialBoard.size % 2 !== 0 && rowWithBlankFromBottom % 2 !== 0) {
+        return inversions % 2 === 0;
+    } else {
+        return inversions % 2 === 1;
     }
-
-    return false
-  }
+}
 
   // min number of moves to solve initial board; -1 if unsolvable
   moves(): number {
@@ -89,6 +79,7 @@ class Solver {
 
     while (true) {
       let priorityNode = heap.poll()
+      // console.log(priorityNode?.board)
 
       if (!priorityNode) {
         return false

@@ -1,7 +1,6 @@
 import Solver from "./classes/solver";
 import Board from "./classes/board";
 import { readFileSync } from "fs";
-import SearchNode from "./classes/searchNode";
 
 const fileName: string = process.argv[2];
 

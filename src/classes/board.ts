@@ -5,7 +5,7 @@ import getTileDistance from "../utils/getTileDistance";
 import createNeighboringBoard from "../utils/createNeighoringBoard";
 
 class Board {
-    private tiles: number[][] = [[0]];
+    public tiles: number[][] = [[0]];
     private goalBoard: number[][] = [[0]]
     public size: number = 0
 
@@ -111,6 +111,20 @@ class Board {
         }
 
         return neighboringBoards;
+    }
+
+    // calc the number of inversions in the puzzle
+    inversionCount(): number {
+        let inversions = 0;
+        const flatTiles = this.tiles.flat();
+        for (let i = 0; i < flatTiles.length - 1; i++) {
+            for (let j = i + 1; j < flatTiles.length; j++) {
+                if (flatTiles[i] !== 0 && flatTiles[j] !== 0 && flatTiles[i] > flatTiles[j]) {
+                    inversions++;
+                }
+            }
+        }
+        return inversions;
     }
 
     // a board that is obtained by exchanging any pair of tiles
